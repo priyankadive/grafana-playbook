@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become_user: root
+  tasks:
+        - name: Add repo to APT sources
+          shell: "echo deb https://packagecloud.io/grafana/stable/debian/ jessie main >> /etc/apt/sources.list"
+        - name: install grafana
+          apt: name=grafana state=present update_cache=yes
+        - name: grafana-server service start
+          service: name=grafana-server state=started enabled=yes
